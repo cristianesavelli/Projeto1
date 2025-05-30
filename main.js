@@ -49,7 +49,7 @@ function atualizaCronometro() {
     }
 }
 
-function comecaCronometro(true) {
+function comecaCronometro() {
     atualizaCronometro();
     setInterval(atualizaCronometro, 1000);
 }
