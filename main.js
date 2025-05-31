@@ -1,64 +1,58 @@
 const botoes = document.querySelectorAll(".botao");
-        const abas = document.querySelectorAll(".aba-conteudo");
+const textos = document.querySelectorAll(".aba-conteudo");
 
-        botoes.forEach((botao, i) => {
-            botao.addEventListener("click", () => {
-                botoes.forEach(b => b.classList.remove("ativo"));
-                abas.forEach(a => a.classList.remove("ativo"));
-                botao.classList.add("ativo");
-                abas[i].classList.add("ativo");
-            });
-        });
+for (let i = 0; i < botoes.length; i++) {
+    botoes[i].onclick = function () {
 
-        const tempoUDESC2025 = new Date("2025-06-15T00:00:00"); // UDESC
-        const tempoENEM2025 = new Date("2025-11-09T00:00:00"); // ENEM
-        const tempoFerias = new Date("2025-07-09T00:00:00"); // FERIAS
-
-        function calculaTempo(tempoObjetivo) {
-            const agora = new Date();
-            let diff = tempoObjetivo - agora;
-
-            if (diff <= 0) {
-                return [0, 0, 0, 0];
-            }
-
-            let segundos = Math.floor(diff / 1000);
-            let minutos = Math.floor(segundos / 60);
-            let horas = Math.floor(minutos / 60);
-            let dias = Math.floor(horas / 24);
-
-            segundos %= 60;
-            minutos %= 60;
-            horas %= 24;
-
-            return [dias, horas, minutos, segundos];
+        for (let j = 0; j < botoes.length; j++) {
+            botoes[j].classList.remove("ativo");
+            textos[j].classList.remove("ativo");
         }
 
-        function atualizaCronometro() {
-            // contador UDESC
-            const [dias0, horas0, min0, seg0] = calculaTempo(tempoUDESC2025);
-            document.getElementById("dias0").textContent = dias0;
-            document.getElementById("horas0").textContent = horas0;
-            document.getElementById("min0").textContent = min0;
-            document.getElementById("seg0").textContent = seg0;
+        botoes[i].classList.add("ativo");
+        textos[i].classList.add("ativo");
+    }
+}
 
-            // contador ENEM
-            const [dias1, horas1, min1, seg1] = calculaTempo(tempoENEM2025);
-            document.getElementById("dias1").textContent = dias1;
-            document.getElementById("horas1").textContent = horas1;
-            document.getElementById("min1").textContent = min1;
-            document.getElementById("seg1").textContent = seg1;
+const contadores = document.querySelectorAll(".contador");
+const tempoObjetivo1 = new Date("2025-06-16T00:00:00");
+const tempoObjetivo2 = new Date("2025-11-08T00:00:00");
+const tempoObjetivo3 = new Date("2025-07-02T00:00:00");
 
-            // contador Ferias
-            const [dias2, horas2, min2, seg2] = calculaTempo(tempoFerias);
-            document.getElementById("dias2").textContent = dias2;
-            document.getElementById("horas2").textContent = horas2;
-            document.getElementById("min2").textContent = min2;
-            document.getElementById("seg2").textContent = seg2;
-        }
+const tempos = [tempoObjetivo1, tempoObjetivo2, tempoObjetivo3 ];
 
-        atualizaCronometro();
-        setInterval(atualizaCronometro, 1000);
+
+function calculaTempo(tempoObjetivo) {
+    let tempoAtual = new Date();
+    let tempoFinal = tempoObjetivo - tempoAtual;
+    let segundos = Math.floor(tempoFinal / 1000);
+    let minutos = Math.floor(segundos / 60);
+    let horas = Math.floor(minutos / 60);
+    let dias = Math.floor(horas / 24);
+
+    segundos %= 60;
+    minutos %= 60;
+    horas %= 24;
+    if (tempoFinal > 0) {
+        return [dias, horas, minutos, segundos];
+    } else {
+        return [0, 0, 0, 0];
+    }
+}
+
+function atualizaCronometro() {
+    for (let i = 0; i < contadores.length; i++) {
+        document.getElementById("dias" + i).textContent = calculaTempo(tempos[i])[0];
+        document.getElementById("horas" + i).textContent = calculaTempo(tempos[i])[1];
+        document.getElementById("min" + i).textContent = calculaTempo(tempos[i])[2];
+        document.getElementById("seg" + i).textContent = calculaTempo(tempos[i])[3];
+    }
+}
+
+function comecaCronometro() {
+    atualizaCronometro();
+    setInterval(atualizaCronometro, 1000);
 }
 
 comecaCronometro();
+
