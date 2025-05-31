@@ -43,14 +43,14 @@ const botoes = document.querySelectorAll(".botao");
             document.getElementById("seg0").textContent = seg0;
 
             // contador ENEM
-            const [dias3, horas3, min3, seg3] = calculaTempo(tempoENEM2025);
+            const [dias1, horas1, min1, seg1] = calculaTempo(tempoENEM2025);
             document.getElementById("dias1").textContent = dias1;
             document.getElementById("horas1").textContent = horas1;
             document.getElementById("min1").textContent = min1;
             document.getElementById("seg1").textContent = seg1;
 
             // contador Ferias
-            const [dias3, horas3, min3, seg3] = calculaTempo(tempoFerias);
+            const [dias2, horas2, min2, seg2] = calculaTempo(tempoFerias);
             document.getElementById("dias2").textContent = dias2;
             document.getElementById("horas2").textContent = horas2;
             document.getElementById("min2").textContent = min2;
